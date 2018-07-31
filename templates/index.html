@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Flask-SocketIO Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{context.GOOGLE_API_KEY}}&callback=initMap" async defer></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.slim.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    var init_sw = {lat: {{context.sw.lat}}, lng: {{context.sw.lng}} };
+    var init_ne = {lat: {{context.ne.lat}}, lng: {{context.ne.lng}} };
+    </script>
+    <script type="text/javascript" src="static/app.js"></script>
+  </head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>LiveTweetMap</h1>
+                <i>Live Geo Tweets on a map using Flask-SocketIO</i>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Change Coordinates</h5>
+                        <p class="card-text">Drag/Zoom the map or insert new coordinates below</p>
+                        <form id="emit" method="POST" action='#'>
+                            <div class="form-group">
+                                <label for="latitude">latitude</label>
+                                <input class="form-control form-control-sm" type="text" name="latitude" id="latitude" placeholder="latitude">
+                                <label for="longitude">longitude</label>
+                                <input class="form-control form-control-sm" type="text" name="longitude" id="longitude" placeholder="longitude">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Refresh</button>
+                        </form>
+                        <p class="card-text small">WS session ID: <span id="intro"></span></p>
+                    </div>
+                </div>
+
+                <h4>Recent Tweets</h4>
+                <p>
+                <div><ul class="list-group">
+                <div id="log" style="max-height:400px;"></div>
+                </ul>
+                </div>
+                </p>
+            </div>
+            <div class="col-9">
+                <div id="map" class="map-container" style="height: 600px"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
