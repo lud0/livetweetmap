@@ -39,9 +39,9 @@ When a client connects to the web server, a new web socket connection is created
 identified by the web socket ID: `ws_id`.
 
 In turn, the `userstream` instance spawns 2 threads:
-1. a Tweepy twitter live stream listener: filtering only geo tweets whose coordinates fall within a
-defined geographic region and pushes them in a ws_id-identified RabbitMQ queue
-2. a queue consumer that listens to the ws_id-identified RabbitMQ queue, pops any tweet present and emits them
+1) a Tweepy twitter live stream listener: filtering only geo tweets whose coordinates fall within a
+defined geographic region and pushes them in a `ws_id`-identified RabbitMQ queue
+2) a queue consumer that listens to the `ws_id`-identified RabbitMQ queue, pops any tweet present and emits them
 via web socket to the client
 
 On the client side, whenever a new tweet event is received via web socket, it is added to the list of tweets and
@@ -49,7 +49,7 @@ added on the map as a marker using Google Maps API and some JS/jQuery magic.
 Only the most recent tweets are shown, older gets deleted from the list on a rolling basis.
 
 When the user changes the geographic region, either by dragging/zooming the map or by setting the center coordinates,
-an event is sent via web socket to the server. The server restarts thread 1. since the twitter geographic
+an event is sent via web socket to the server. The server restarts thread 1) since the twitter geographic
 filter has changed.
 
 ## What if I don't have a Twitter API keys ?
